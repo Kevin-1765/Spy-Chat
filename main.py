@@ -1,7 +1,7 @@
 #Import Statements
 """
  First Statement is importing the data from spy_details.py file
- Next three statements are for importing the classes which are used for encoding/decoding the text,
+ Next four statements are for importing the classes which are used for encoding/decoding the text,
  colored chat text and for alert box respectively
 """
 
@@ -25,10 +25,10 @@ def add_status():
     if spy.current_status_message != None:
         print 'Your current status message is %s \n' % (spy.current_status_message)
     else:
-        print 'You don\'t have any status message currently \n'
+        print 'Oops you don\'t have any status message currently \n'
     default = raw_input("Do you want to select from pre-defined status (y/n)? ")
     if default.upper() == "N":
-        new_status_message = raw_input("Enter your status message \n")
+        new_status_message = raw_input("What\'s in your mind?\n")
         if len(new_status_message) > 0:
             Status_Messages.append(new_status_message)
             updated_status_message = new_status_message
@@ -62,14 +62,13 @@ def add_friend():
         if not i.isalpha():
             c = c + 1
     if c==0 and len(new_friend.name)>0:
-        new_friend.salutation = raw_input("Is He/She is Mr. or Ms.?: ")
-        new_friend.name = new_friend.salutation + " " + new_friend.name
+        new_friend.salutation = raw_input("Is He/She is a Mr. or Ms.?: ")
         new_friend.age = int(raw_input("Age :"))
         new_friend.rating =float(raw_input("Spy rating : "))
     #if len(new_friend.name) > 0 and ( 12< new_friend.age < 50) and (spy.rating <=new_friend.rating >= spy.rating and new_friend.rating<=5):
         if len(new_friend.name) > 0 and (12 < new_friend.age < 50) and (spy.rating <= new_friend.rating <= 5):
             friends.append(new_friend)
-            print 'Friend Added your friend list \n'
+            print 'Friend Added to your friend list \n'
     else:
         print 'Sorry you have entered invalid inputs \n'
         exit()
@@ -151,9 +150,9 @@ def read_chat():
         cspy = colored(friends[read_for].name, 'red')
            #based upon the message sender the chat message are printed
         if chat.sent_by_me:
-                print '['+ctime+']'+ 'you said:'+" "+chat.message
+                print 'At ['+ctime+']'+ 'you said:'+" "+chat.message
         else:
-                print '['+ctime+']'+ cspy + " said: " + chat.message
+                print 'At ['+ctime+']'+ cspy + " said: " + chat.message
 
             #Check for emergency codes
         if chat.message=="SOS"or "SAVE ME"or "HELP ME":
@@ -173,9 +172,9 @@ def start_chat(spy):
         elif 2.5 <= spy.rating <= 3.5:
             print "You are a average spy"
         elif 3.5 < spy.rating <= 4.5:
-            print "You are good spy"
+            print "You are a good spy"
         else:
-            print "You are Brilliant Spy"
+            print "You are a Brilliant Spy"
 
         print "Authentication completed. Welcome " + spy.name + " age "+ str(spy.age) + " and rating of " + str(spy.rating)
         show_menu = True
@@ -200,7 +199,7 @@ def start_chat(spy):
                 elif choice == 5:
                     read_chat()
                 else:
-                    print 'Goodbye!!'
+                    print 'Goodbye!! Have a good Day'
                     show_menu = False
                     exit()
 
@@ -213,6 +212,7 @@ if query.upper()== "Y":
 # For entering new user information
 else:
     spy = Spy('','',0,0.0)
+    print  "Please fill out the following information to create a new profile"
     spy.name = raw_input("Enter Your name first: ")
     c=0
     for i in spy.name:
@@ -220,15 +220,15 @@ else:
             c = c + 1
     #Check cases for age name,age restrictions,rating range
     if len(spy.name) > 0 and c==0:
-        spy.salutation = raw_input("What Should I call you Mr. or Ms.?: ")
+        spy.salutation = raw_input("Are you a Mr. or Ms.?: ")
         spy.age =int(raw_input("Enter your age : "))
         spy.rating=float(raw_input("Enter your spy rating: "))
 
         if spy.age < 12 or spy.age > 50:
-            print "You\'re age doesn\'t Qualify to be a Spy"
+            print "You\'re age doesn\'t qualify to be a Spy"
             exit()
         if spy.rating > 5 or spy.rating < 0:
-            print 'The Rating can be in between range of 0-5'
+            print 'Spy rating can be in between the range of 0-5'
             exit()
         else:
              start_chat(spy)
